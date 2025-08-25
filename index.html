@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Service Reserve Corps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #001428 0%, #2c5282 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #001f3f 0%, #2c5282 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .nsrc-logo {
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #001f3f;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .main-content {
+            padding: 80px 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 55px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 8px 25px rgba(0, 31, 63, 0.1);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #001f3f 0%, #2c5282 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #FFD700;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            color: #001f3f;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #001f3f 0%, #2c5282 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #FFD700 0%, #FFB700 100%);
+            color: #001f3f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn {
+            background: #f8f9fa;
+            color: #001f3f;
+            border: 2px solid #001f3f;
+            margin: 20px 0;
+        }
+
+        .back-btn:hover {
+            background: #001f3f;
+            color: white;
+        }
+
+        .page {
+            display: none;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .announcement-grid, .update-grid, .lecture-grid, .officer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #FFD700;
+        }
+
+        .card h4 {
+            color: #001f3f;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #001f3f;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .officer-card {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .officer-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #001f3f 0%, #2c5282 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .officer-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .officer-info h4 {
+            color: #001f3f;
+            margin-bottom: 5px;
+        }
+
+        .officer-info p {
+            color: #2c5282;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: #001f3f;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .page {
+                padding: 20px 15px;
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nsrc-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>NATIONAL SERVICE RESERVED CORPS</h1>
+            <p>Serving the Nation with Pride and Dedication</p>
+        </div>
+
+      
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-home" style="color: #FFD700;"></i> WELCOME TO NSRC WEB
+            </h2>
+            
+            <div class="features-grid">
+                <!-- Announcements Button -->
+                <div class="feature-card" onclick="showPage('announcements')">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>ANNOUNCEMENTS</h3>
+                    <p>Stay updated with NSRC and CWTS training schedules, important notices, and official communications.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> View Announcements
+                    </button>
+                </div>
+
+                <!-- Updates Button -->
+                <div class="feature-card" onclick="showPage('updates')">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>ACCOMPLISHMENTS</h3>
+                    <p>Latest news about NSRC activities, ongoing projects, accomplishments, and community engagements.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> Check Updates
+                    </button>
+                </div>
+
+                <!-- Lectures Button -->
+                <div class="feature-card" onclick="showPage('lectures')">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>LECTURES</h3>
+                    <p>Educational materials on outreach programs, nation building, community services, health, and disaster preparedness.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> Explore Lectures
+                    </button>
+                </div>
+
+                <!-- Ask for Help Button -->
+                <div class="feature-card" onclick="showPage('help')">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>ASK FOR HELP</h3>
+                    <p>Need assistance? Send us your concerns and we'll get back to you as soon as possible.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> Request Help
+                    </button>
+                </div>
+
+                <!-- NSRC Officers Button -->
+                <div class="feature-card" onclick="showPage('officers')">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>NSRC OFFICERS</h3>
+                    <p>Meet our dedicated officers who serve with commitment and excellence in various leadership roles.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> View Officers
+                    </button>
+                </div>
+                <!--ABOUT US-->
+                 <div class="feature-card" onclick="showPage('about')">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>ABOUT US</h3>
+                    <p>More informations about NSRC organization.</p>
+                    <button class="btn">
+                        <i class="fas fa-arrow-right"></i> See Us
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Announcements Page -->
+        <div id="announcements" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-bullhorn" style="color: #FFD700;"></i> Announcements
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="announcement-grid">
+                <div class="card">
+                    <h4>Upcoming CWTS Training</h4>
+                    <p><strong>Date:</strong> September 7, 2025</p>
+                    <p><strong>Time:</strong> 7:00 AM - 12:00 PM</p>
+                    <p><strong>Venue:</strong> Gymnasium</p>
+                    <p>All participants are required to wear white shirt and maong pant.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>NSRC Basic Orientation</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong> </p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Mandatory for all new NSRC members.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Emergency Preparedness Seminar</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong></p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Learn essential disaster response techniques and first aid procedures.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Updates Page -->
+        <div id="updates" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-newspaper" style="color: #FFD700;"></i> NSRC Updates
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="update-grid">
+                <div class="card">
+                    <h4>Community Clean-up Drive Success</h4>
+                    <p>Our recent community clean-up drive in Barangay ****** was a huge success with over 200 volunteers participating.</p>
+                    <p><strong>Impact:</strong> 5 tons of waste collected, 15 streets cleaned</p>
+                </div>
+                
+                <div class="card">
+                    <h4>New Training Equipment Arrived</h4>
+                    <p>We've received new first aid training equipment and disaster response tools to enhance our training programs.</p>
+                    <p><strong>Includes:</strong> CPR mannequins, emergency stretchers, communication devices</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Partnership with Local Government</h4>
+                    <p>NSRC has formalized a partnership with the local government for joint disaster preparedness initiatives.</p>
+                    <p><strong>Benefits:</strong> Shared resources, coordinated response, community training</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lectures Page -->
+        <div id="lectures" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-chalkboard-teacher" style="color: #FFD700;"></i> Educational Lectures
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="lecture-grid">
+                <div class="card">
+                    <h4>Disaster Preparedness 101</h4>
+                    <p>Essential guide for natural disaster preparedness including earthquakes, typhoons, and floods.</p>
+                    <p><strong>Topics:</strong> Emergency kits, evacuation plans, family preparedness</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Community Health Awareness</h4>
+                    <p>Promoting health and wellness in local communities through education and preventive measures.</p>
+                    <p><strong>Topics:</strong> Basic hygiene, disease prevention, nutrition education</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Nation Building Initiatives</h4>
+                    <p>How citizens can contribute to national development through volunteerism and civic engagement.</p>
+                    <p><strong>Topics:</strong> Civic responsibility, volunteer opportunities, community development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Page -->
+        <div id="help" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-hands-helping" style="color: #FFD700;"></i> Request Assistance
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdRsajjxWyVz57IzixRaCyq0nfdih3kzIgnRv_zn471xwD8Sg/viewform?embedded=true" width="640" height="643" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+
+        <!-- Officers Page -->
+        <div id="officers" class="page">
+            <h2 style="text-align: center; color: #ebf5ff; margin-bottom: 30px;">
+                <i class="fas fa-users" style="color: #FFD700;"></i> NSRC OFFICERS
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="officer-grid">
+                <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>REINDELLE MILSON J. TUICO</h4>
+                        <p>NSRC PRESIDENT</p>
+                    </div>
+                </div>
+                
+                <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>ALEXA JOI C. MAGUYON</h4>
+                        <p>NSRC VICE PRESIDENT</p>
+                    </div>
+                </div>
+                
+                <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>PEACHY SERI R. ENDRINAL</h4>
+                        <p>SECRETARY</p>
+                    </div>
+                </div>
+                
+                <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>VINCENT TIMOTHY M. ESTRALLADO</h4>
+                        <p>TREASURER</p>
+                    </div>
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>PRINCESS DAINTY B. ENRIQUEZ</h4>
+                        <p>OFFICE MANAGER</p>
+                    </div> 
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>ADRIAN N. MARTINEZ</h4>
+                        <p>AUDITOR</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>CHRIS JOHN A. AQUINO</h4>
+                        <p>PRO INTERNAL</p>
+                    </div> 
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>YSAIEL N. MAMANGON</h4>
+                        <p>PRO EXTERNAL</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>KRISHA CAMILLE S. CIAR</h4>
+                        <p>FUND-RAISING COORDINATIOR</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>WENDY B. URRIQUIA</h4>
+                        <p>MEMBERSHIP COORDINATOR</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>ERIKA CLAVEL A. VENERACION</h4>
+                        <p>OUTREACH COORDINATOR</p>
+                    </div>
+                    
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>FRANCIS ERVIN B. QUINTO</h4>
+                        <p>DRRR OFFICER</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>MARY GWYNETH R. DE VILLA</h4>
+                        <p>DRRR ASSISTANT</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>JAMEA V. BELEN</h4>
+                        <p>TRAINING AND DEVELOPMENT OFFICER</p>
+                    </div> 
+                    
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>VIAN CYRUZ G. SUAREZ</h4>
+                        <p>CCS REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>PHOEBE MYKA S. LORICHO</h4>
+                        <p>CTE REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>JUSTINE RAY B. BUNA</h4>
+                        <p>CIT REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>MICHELLE JOHN R. BAREZA</h4>
+                        <p>CIHMT REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>SETH LLENARD A. AVANZADO</h4>
+                        <p>CBAA REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>MARIEL B. TORIO</h4>
+                        <p>CAS REPRESENTATIVE</p>
+                    </div> 
+
+                    </div> 
+
+                    <div class="officer-card">
+                    <div class="officer-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="officer-info">
+                        <h4>JARICE S. SAVINIANO</h4>
+                        <p>COE REPRESENTATIVE</p>
+                    </div> 
+                    <!--ABOUT US PAGE-->
+
+                     <div id="about" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-bullhorn" style="color: #FFD700;"></i> ABOUT US
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="announcement-grid">
+                <div class="card">
+                    <h4>Upcoming CWTS Training</h4>
+                    <p><strong>Date:</strong> September 7, 2025</p>
+                    <p><strong>Time:</strong> 7:00 AM - 12:00 PM</p>
+                    <p><strong>Venue:</strong> Gymnasium</p>
+                    <p>All participants are required to wear white shirt and maong pant.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>NSRC Basic Orientation</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong> </p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Mandatory for all new NSRC members.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Emergency Preparedness Seminar</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong></p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Learn essential disaster response techniques and first aid procedures.</p>
+                </div>
+            </div>
+        </div>
+        
+
+                </div>
+                 <div id="announcements" class="page">
+            <h2 style="text-align: center; color: #001f3f; margin-bottom: 30px;">
+                <i class="fas fa-bullhorn" style="color: #FFD700;"></i> Announcements
+            </h2>
+            <button class="btn back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            
+            <div class="announcement-grid">
+                <div class="card">
+                    <h4>Upcoming CWTS Training</h4>
+                    <p><strong>Date:</strong> September 7, 2025</p>
+                    <p><strong>Time:</strong> 7:00 AM - 12:00 PM</p>
+                    <p><strong>Venue:</strong> Gymnasium</p>
+                    <p>All participants are required to wear white shirt and maong pant.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>NSRC Basic Orientation</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong> </p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Mandatory for all new NSRC members.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Emergency Preparedness Seminar</h4>
+                    <p><strong>Date:</strong> </p>
+                    <p><strong>Time:</strong></p>
+                    <p><strong>Venue:</strong> </p>
+                    <p>Learn essential disaster response techniques and first aid procedures.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 National Service Reserve Corps. All rights reserved.</p>
+            <p>Dedicated to serving the nation with honor and commitment.</p>
+        </div>
+    </div>
+
+    <script>
+        // Page navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Help form submission
+        function submitHelpRequest() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            alert('Thank you for your message. We will get back to you soon!');
+            
+            // Clear form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('concern-type').value = '';
+            document.getElementById('message').value = '';
+            
+            // Return to home
+            showPage('home');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
+
